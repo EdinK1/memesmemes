@@ -1,5 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { Meme } from "./compontents/Meme";
+import { Wrapper } from "./compontents/Wrapper";
+import { Header } from "./compontents/Header";
+import { FinalMeme } from "./compontents/FinalMeme";
+import { BackButton } from "./compontents/Button";
+import {
+  StyledForm,
+  FormContent,
+  FormButton,
+  FormInput
+} from "./compontents/Form";
+import { Footer } from "./compontents/Footer";
+
 import "./App.css";
 
 const objectToQueryParam = obj => {
@@ -7,7 +19,7 @@ const objectToQueryParam = obj => {
   return "?" + params.join("&");
 };
 
-function App() {
+const App = () => {
   const [templates, setTemplates] = useState([]);
   const [template, setTemplate] = useState(null);
   const [topText, setToptext] = useState("");
@@ -22,16 +34,24 @@ function App() {
 
   if (meme) {
     return (
-      <>
-        <img style={{ width: 200 }} src={meme} alt='meme' />
-      </>
+      <StyledForm>
+        <FinalMeme src={meme} alt='meme' />
+        <p>Right click on the image to save it.</p>
+        <BackButton
+          onClick={() => {
+            window.location = window.location;
+          }}
+        >
+          Go to main page
+        </BackButton>
+      </StyledForm>
     );
   }
 
   return (
-    <main className='App'>
+    <>
       {template && (
-        <form
+        <StyledForm
           onSubmit={async e => {
             e.preventDefault();
             const params = {
@@ -50,37 +70,42 @@ function App() {
             setMeme(json.data.url);
           }}
         >
-          <Meme template={template} />
-          <input
-            placeholder='Top text'
-            value={topText}
-            onChange={e => setToptext(e.target.value)}
-          />
-          <input
-            placeholder='Bottom text'
-            value={bottomText}
-            onChange={e => setBottomText(e.target.value)}
-          />
-          <button type='submit'>Create Meme</button>
-        </form>
+          <FormContent>
+            <Meme template={template} />
+            <FormInput
+              placeholder='Top text'
+              value={topText}
+              onChange={e => setToptext(e.target.value)}
+            />
+            <FormInput
+              placeholder='Bottom text'
+              value={bottomText}
+              onChange={e => setBottomText(e.target.value)}
+            />
+            <FormButton type='submit'>Create Meme</FormButton>
+          </FormContent>
+        </StyledForm>
       )}
       {!template && (
         <>
-          <h1>Pick a Meme</h1>
-          {templates.map(template => {
-            return (
-              <Meme
-                template={template}
-                onClick={() => {
-                  setTemplate(template);
-                }}
-              />
-            );
-          })}
+          <Header />
+          <Wrapper>
+            {templates.map(template => {
+              return (
+                <Meme
+                  template={template}
+                  onClick={() => {
+                    setTemplate(template);
+                  }}
+                />
+              );
+            })}
+          </Wrapper>
+          <Footer />
         </>
       )}
-    </main>
+    </>
   );
-}
+};
 
 export default App;
