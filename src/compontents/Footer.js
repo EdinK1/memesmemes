@@ -5,7 +5,7 @@ export const StyledFooter = styled.footer`
   background: #f4f4f4;
   color: #000;
   padding: 1rem 0;
-  margin-top: 1rem;
+  margin-top: 200px;
 `;
 
 export const Copyright = styled.p`
