@@ -39,6 +39,7 @@ const App = () => {
         <p>Right click on the image to save it.</p>
         <BackButton
           onClick={() => {
+            // eslint-disable-next-line
             window.location = window.location;
           }}
         >
