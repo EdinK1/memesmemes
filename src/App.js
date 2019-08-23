@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Meme } from "./compontents/Meme";
-import { Wrapper } from "./compontents/Wrapper";
+import { Wrapper, WrapItem } from "./compontents/Wrapper";
 import { Header } from "./compontents/Header";
 import { FinalMeme } from "./compontents/FinalMeme";
 import { BackButton } from "./compontents/Button";
@@ -93,12 +93,14 @@ const App = () => {
           <Wrapper>
             {templates.map(template => {
               return (
-                <Meme
-                  template={template}
-                  onClick={() => {
-                    setTemplate(template);
-                  }}
-                />
+                <WrapItem>
+                  <Meme
+                    template={template}
+                    onClick={() => {
+                      setTemplate(template);
+                    }}
+                  />
+                </WrapItem>
               );
             })}
           </Wrapper>
